@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.learn</groupId>
     <artifactId>github-action</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>github-action</name>
     <description>github-action</description>
     <url/>
