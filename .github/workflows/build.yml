@@ -65,17 +65,23 @@ jobs:
           name: maven-target
           path: target
 
+      - name: Detect JAR name from pom.xml
+        id: jar_name
+        run: |
+          JAR_NAME=$(mvn help:evaluate -Dexpression=project.build.finalName -q -DforceStdout).jar
+          echo "Detected jar: $JAR_NAME"
+          echo "jar=$JAR_NAME" >> $GITHUB_OUTPUT
+  
       - name: Package JAR
         run: |
           echo "Packaging Spring Boot JAR"
-          ls target/*.jar
+          ls -lh target/${{ steps.jar_name.outputs.jar }}
 
       - name: Upload packaged JAR
         uses: actions/upload-artifact@v4
         with:
-          name: spring-boot-app
-          path: target/*.jar
-
+          name: ${{ steps.jar_name.outputs.jar }}   # 👈 artifact name same as JAR
+          path: target/${{ steps.jar_name.outputs.jar }}
   # -----------------------
   # 4. Deploy Job (Optional)
   # -----------------------
