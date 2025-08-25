@@ -68,7 +68,7 @@ jobs:
       - name: Detect JAR name from pom.xml
         id: jar_name
         run: |
-          JAR_NAME=$(mvn help:evaluate -Dexpression=project.build.finalName -q -DforceStdout).jar
+          JAR_NAME=JAR_NAME="${PROJECT_ARTIFACT_ID}-${PROJECT_VERSION}.jar"
           echo "Detected jar: $JAR_NAME"
           echo "jar=$JAR_NAME" >> $GITHUB_OUTPUT
   
